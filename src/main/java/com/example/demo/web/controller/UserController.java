@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/api")
@@ -24,5 +25,12 @@ public class UserController {
     public List<User> getUserByName(@RequestParam(value = "name")String  name){
         List<User> user=userRepository.findByName(name);
         return user;
+    }
+
+    @GetMapping("/user/html/{id}")
+    public String getById(@PathVariable(value = "id")long id,Map<String,Object> map){
+        User user=userRepository.findById(id);
+        map.put("hello",user.getName());
+        return "index";
     }
 }
