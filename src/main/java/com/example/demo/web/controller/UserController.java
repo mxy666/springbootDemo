@@ -10,7 +10,8 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 /**
- * author mxy
+ * author mxy 2017/11/21
+ * 页面跳转，使用jpa简单查询
  */
 
 @Controller
