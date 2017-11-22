@@ -20,6 +20,13 @@ apply plugin: 'java'
 apply plugin: 'eclipse-wtp'
 apply plugin: 'idea'
 
+
+
+jar {
+	baseName = 'gs-securing-web'
+	version =  '0.1.0'
+}
+
 sourceCompatibility = 1.8
 targetCompatibility = 1.8
 
@@ -35,14 +42,16 @@ dependencies {
 
 	compile 'org.springframework.boot:spring-boot-starter-thymeleaf'
 
-	compile 'org.springframework.restdocs:spring-restdocs-core:1.2.1.RELEASE'
+	//compile 'org.springframework.restdocs:spring-restdocs-core:1.2.1.RELEASE'
 	compile 'org.springframework.restdocs:spring-restdocs-mockmvc:1.2.1.RELEASE'
 
 	compile 'mysql:mysql-connector-java:5.1.42'
 	compile 'com.google.code.gson:gson:2.7'
 	compile  group: 'org.springframework.boot', name: 'spring-boot-devtools', version: '1.4.3.RELEASE'
+	compile 'org.springframework.boot:spring-boot-starter-security'
+
 
 	testCompile("org.springframework.boot:spring-boot-starter-test")
-
+	testCompile("org.springframework.security:spring-security-test")
 	compile 'com.github.liyiorg:weixin-popular:2.8.13'
 }
