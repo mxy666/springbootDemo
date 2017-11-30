@@ -3,10 +3,12 @@ package com.example.demo.web.controller;
 import com.example.demo.domain.User;
 import com.example.demo.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.security.Principal;
 import java.util.List;
 
 /**
@@ -39,4 +41,12 @@ public class UserController {
         model.addAttribute("hello",user.getName());
         return "index";
     }
+
+    @RequestMapping("/foo")
+    public String foo(Principal principal,Model model) {
+        Authentication authentication = (Authentication) principal;
+        model.addAttribute("test",authentication.getPrincipal().toString());
+        return "test";
+    }
+
 }
