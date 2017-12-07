@@ -1,6 +1,7 @@
 package com.example.demo.support;
 
 import com.example.demo.domain.SysRole;
+
 import com.example.demo.domain.SysUser;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -21,7 +22,7 @@ public class SecurityUser  extends SysUser implements UserDetails {
             this.setEmail(suser.getEmail());
             this.setPassword(suser.getPassword());
             this.setDob(suser.getDob());
-            this.setSysRoles(suser.getSysRoles());
+            this.setSRoles(suser.getSysRoles());
         }
     }
 

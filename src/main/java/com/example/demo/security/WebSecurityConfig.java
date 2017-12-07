@@ -1,3 +1,4 @@
+/*
 package com.example.demo.security;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -55,4 +56,4 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     public BCryptPasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder(4);
     }
-}
+}*/

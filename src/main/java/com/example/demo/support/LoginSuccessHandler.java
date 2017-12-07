@@ -7,11 +7,11 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.example.demo.domain.SysRole;
+import com.example.demo.domain.SysUser;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.web.authentication.SavedRequestAwareAuthenticationSuccessHandler;
 
-import security.entity.SysRole;
-import security.entity.SysUser;
 
 public class LoginSuccessHandler extends
         SavedRequestAwareAuthenticationSuccessHandler {
@@ -20,17 +20,18 @@ public class LoginSuccessHandler extends
                                         HttpServletResponse response, Authentication authentication) throws IOException,
             ServletException {
         //获得授权后可得到用户信息   可使用SUserService进行数据库操作
-        SysUser userDetails = (SysUser)authentication.getPrincipal();
-       /* Set<SysRole> roles = userDetails.getSysRoles();*/
+        SysUser userDetails = (SysUser) authentication.getPrincipal();
+        Set<SysRole> roles = userDetails.getSysRoles();
+
         //输出登录提示信息
         System.out.println("管理员 " + userDetails.getName() + " 登录");
 
-        System.out.println("IP :"+getIpAddress(request));
+        System.out.println("IP :" + getIpAddress(request));
 
         super.onAuthenticationSuccess(request, response, authentication);
     }
 
-    public String getIpAddress(HttpServletRequest request){
+    public String getIpAddress(HttpServletRequest request) {
         String ip = request.getHeader("x-forwarded-for");
         if (ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)) {
             ip = request.getHeader("Proxy-Client-IP");
@@ -49,3 +50,4 @@ public class LoginSuccessHandler extends
         }
         return ip;
     }
+}
