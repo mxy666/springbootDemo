@@ -9,16 +9,23 @@ import javax.servlet.FilterConfig;
 import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
+import javax.servlet.annotation.WebFilter;
 
 import com.example.demo.service.CustomInvocationSecurityMetadataSourceService;
 import com.example.demo.support.CustomAccessDecisionManager;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.web.servlet.ServletComponentScan;
 import org.springframework.security.access.SecurityMetadataSource;
 import org.springframework.security.access.intercept.AbstractSecurityInterceptor;
 import org.springframework.security.access.intercept.InterceptorStatusToken;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.web.FilterInvocation;
+import org.springframework.stereotype.Component;
 
+
+@ServletComponentScan
+@Component
+@WebFilter(filterName = "MySecurityFilter")
 public class MySecurityFilter extends AbstractSecurityInterceptor implements Filter{
         @Autowired
         private CustomInvocationSecurityMetadataSourceService mySecurityMetadataSource;

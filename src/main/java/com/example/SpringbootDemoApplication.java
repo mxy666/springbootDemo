@@ -14,7 +14,7 @@ import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-@EnableAutoConfiguration(exclude = MyFilterSecurityInterceptor.class)
+//@EnableAutoConfiguration(exclude = MyFilterSecurityInterceptor.class)
 public class SpringbootDemoApplication {
 
 
@@ -25,7 +25,7 @@ public class SpringbootDemoApplication {
 	}
 
 	public static void main(String[] args) {
-		//SpringApplication.run(MainApplication.class, args);
+		//SpringApplication.run(SpringbootDemoApplication.class, args);
 		SpringApplication app=new SpringApplication(SpringbootDemoApplication.class);
 		Appctx.ctx=app.run(args);
         /*UserService suserService = (UserService) Appctx.ctx.getBean("suserService");

@@ -20,7 +20,7 @@ import org.springframework.security.web.access.intercept.FilterSecurityIntercept
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
-    private MyFilterSecurityInterceptor mySecurityFilter;
+    private MyFilterSecurityInterceptor myFilterSecurityInterceptor;
 
     @Autowired
     private CustomUserDetailsService customUserDetailsService;
@@ -38,7 +38,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
-                .addFilterBefore(mySecurityFilter, FilterSecurityInterceptor.class)//在正确的位置添加我们自定义的过滤器
+                .addFilterBefore(myFilterSecurityInterceptor, FilterSecurityInterceptor.class)//在正确的位置添加我们自定义的过滤器
                 .authorizeRequests()
                 .antMatchers("/home").permitAll()
                 .anyRequest().authenticated()
