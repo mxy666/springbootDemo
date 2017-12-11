@@ -8,6 +8,9 @@
 <!--<h1 th:inline="text">Hello [[${#httpServletRequest.remoteUser}]]!</h1>-->
 <h1 th:inline="text">Hello</h1>
 
+<div sec:authorize="hasRole('ROLE_ADMIN')"> <!-- 用户类型为ROLE_ADMIN 显示 -->
+    <p class="bg-info">恭喜您,您有 ROLE_ADMIN 权限 </p>
+</div>
 <form th:action="@{/logout}" method="post">
     <input type="submit" value="Sign Out"/>
 </form>

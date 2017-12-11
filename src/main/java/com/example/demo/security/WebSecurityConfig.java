@@ -11,6 +11,7 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.access.intercept.FilterSecurityInterceptor;
 
@@ -22,8 +23,25 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     private MyFilterSecurityInterceptor myFilterSecurityInterceptor;
 
-    @Autowired
-    private CustomUserDetailsService customUserDetailsService;
+//    @Autowired
+//    private CustomUserDetailsService customUserDetailsService;
+
+
+    @Bean
+    public BCryptPasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder(4);
+    }
+
+    // Code3----------------------------------------------
+    @Bean
+    public LoginSuccessHandler loginSuccessHandler(){
+        return new LoginSuccessHandler();
+    }
+
+    @Bean
+    UserDetailsService customUserService(){ //注册UserDetailsService 的bean
+        return new CustomUserDetailsService();
+    }
 
     @Override
     public AuthenticationManager authenticationManagerBean() throws Exception {
@@ -63,23 +81,14 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     }
     @Autowired
     public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
-//指定密码加密所使用的加密器为passwordEncoder()
-//需要将密码加密后写入数据库
-        auth.userDetailsService(customUserDetailsService).passwordEncoder(passwordEncoder());
-//不删除凭据，以便记住用户
+    //指定密码加密所使用的加密器为passwordEncoder()
+    //需要将密码加密后写入数据库
+      //  auth.userDetailsService(customUserService()).passwordEncoder(passwordEncoder());
+        auth.userDetailsService(customUserService());
+    //不删除凭据，以便记住用户
         auth.eraseCredentials(false);
     }
 
-    // Code5----------------------------------------------
-    @Bean
-    public BCryptPasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder(4);
-    }
 
-    // Code3----------------------------------------------
-    @Bean
-    public LoginSuccessHandler loginSuccessHandler(){
-        return new LoginSuccessHandler();
-    }
 
 }

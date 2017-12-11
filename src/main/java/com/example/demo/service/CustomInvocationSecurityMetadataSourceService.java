@@ -9,6 +9,7 @@ import java.util.Map;
 
 import javax.annotation.PostConstruct;
 
+import com.example.demo.domain.SysRole;
 import com.example.demo.repository.SysResourceRspository;
 import com.example.demo.repository.SysRoleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,22 +39,19 @@ public class CustomInvocationSecurityMetadataSourceService implements
 
     private static Map<String, Collection<ConfigAttribute>> resourceMap = null;
 
-    /*public CustomInvocationSecurityMetadataSourceService(SResourceService sres,SRoleService sR) {
-        this.sResourceService = sres;
-        this.sRoleService = sR;
-        loadResourceDefine();
-    }*/
+
     //被@PostConstruct修饰的方法会在服务器加载Servle的时候运行，
     @PostConstruct
     // 并且只会被服务器执行一次。PostConstruct在构造函数之后执行,init()方法之前执行。
     private void loadResourceDefine() {
         // 在Web服务器启动时，提取系统中的所有权限。
-        List<Map<String,Object>> list =sRoleVODao.findAll();
+
+        List<SysRole> list =sRoleVODao.findAll();
         List<String> query = new ArrayList<String>();
         if(list!=null && list.size()>0) {
-            for(Map<String,Object> sr :list){
+            for(SysRole sr :list){
                 //String name = sr.get("name")
-                Object value = sr.get("name");
+                Object value = sr.getName();
                 String name = String.valueOf(value);
                 query.add(name);
             }
@@ -67,7 +65,7 @@ public class CustomInvocationSecurityMetadataSourceService implements
         for (String auth : query) {
             ConfigAttribute ca = new SecurityConfig(auth);
             List<String> query1 = new ArrayList<String>();
-            List<Map<String, Object>>  list1 = sResourceVODao.findByRoleName(auth);
+            List<Map<String, Object>>  list1 = sResourceVODao.findByresourceId(auth);
             if(list1!=null && list1.size()>0) {
                 for(Map<String, Object> map :list1){
                     Object value = map.get("resource_string");
@@ -128,4 +126,4 @@ public class CustomInvocationSecurityMetadataSourceService implements
 
         return true;
     }
-    }
+}

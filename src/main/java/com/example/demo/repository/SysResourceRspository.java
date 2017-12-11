@@ -7,5 +7,5 @@ import java.util.List;
 
 public interface SysResourceRspository extends JpaRepository<SysResource, Long> {
 
-        List findByRoleName(String name);
+        List findByresourceId(String name);
 }

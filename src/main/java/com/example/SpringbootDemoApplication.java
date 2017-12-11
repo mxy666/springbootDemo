@@ -25,7 +25,7 @@ public class SpringbootDemoApplication {
 	}
 
 	public static void main(String[] args) {
-		//SpringApplication.run(SpringbootDemoApplication.class, args);
+//		SpringApplication.run(SpringbootDemoApplication.class, args);
 		SpringApplication app=new SpringApplication(SpringbootDemoApplication.class);
 		Appctx.ctx=app.run(args);
         /*UserService suserService = (UserService) Appctx.ctx.getBean("suserService");
